@@ -8,8 +8,13 @@ var goldhenVersions = [
     "selected": true
   },
   {
+    "value": "v2.4b18.8",
+    "text": "v2.4b18.8 - 28 Jan 2026 *Latest Beta*",
+    "fw": ["9.xx","8.xx","7.xx"]
+  },
+  {
     "value": "v2.4b18.7",
-    "text": "v2.4b18.7 - 24 Nov 2025 *Latest Beta*",
+    "text": "v2.4b18.7 - 24 Nov 2025 ",
     "fw": ["9.xx","8.xx","7.xx"]
   },
   {
