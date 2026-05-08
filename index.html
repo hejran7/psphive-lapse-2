@@ -39,6 +39,7 @@ body{background-color:#1849A5;background:url("files/img/BG.jpg");background-size
     left: 0;
     width: -webkit-fill-available;
     z-index: 999; 
+    display: none;
 }
 </style>
 <script src="files/bundle.js"></script>
@@ -66,6 +67,7 @@ async function runJB(){
     CacheProgress.style.display="none";
     cacheUPDtxt.innerHTML="Running Webkit Exploit, Please Wait ...";
     
+    outputConsole.style.display = "block";
     outputConsole.textContent = ""; // Clear console log
     
     try {
