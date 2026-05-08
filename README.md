@@ -5,8 +5,10 @@ A fast, stable, and beautiful PS4 exploit host that combines the gorgeous **PSPh
 
 Just open this link in your PS4 browser (make sure to include `/index.html` at the end):
 
-**Main Link (Recommended):**
+Main Link (Recommended):
 https://hejran7.github.io/psphive-lapse-2/index.html
+
+Mirror Link:
 https://sinajet.github.io/psphive-lapse-2/index.html
 
 
