@@ -16,7 +16,7 @@ var menuData = {
         "PL-Title": "GoldHEN",
         "PL-Bin": "GoldHEN.bin",
         "PL-Ver": "By SiSTRo",
-        "PL-Desc": "<b>* PRESS R1 TO CHANGE VERSION *<br>* PRESS L1 TO SET AutoLoad After Exploit ON/OFF *</b><br>Homebrew Enabler, Enable Debug Settings, PSVR Support,<br>External HDD Support, Remote PKG Installer Support,<br>Full Rest Mode Support, Debug Trophies Support, Enable UART,<br>Enable Blocked Screenshots, FTP Server on port 2121,<br>BinLoader Server on port 9090.",
+        "PL-Desc": "<b>* PRESS R1 TO CHANGE VERSION *<br>* PRESS L1 TO SET AutoLoad After Exploit ON/OFF *</b><br>Homebrew Enabler, Enable Debug Settings, PSVR Support,<br>External HDD Support, Remote PKG Installer Support,<br>Full Rest Mode Support, Debug Trophies Support, Enable UART,<br>Enable Blocked Screenshots, FTP Server on port 2121,<br>BinLoader Server on port 9090,<br>PayLoader LaunchPad and AutoRun Support.<br><br><b>v2.4b18.10 - What's New:</b><br>Another feature on the roadmap has been completed.<br><b>Changelog:</b><br>- Added PayLoader LaunchPad and AutoRun support<br>- Fixed sceUserServiceInitialize failure on ELF payloads<br><b>Note:</b> To add a custom icon, place a png file in the same directory as your payload, using the exact same name followed by the .png extension<br>(e.g., test.bin → test.bin.png).",
         "Icon": "<img src=\"img/hen.svg\">",
         "FW": ["9.xx","8.xx","7.xx"]
       },
