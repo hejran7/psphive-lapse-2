@@ -26,6 +26,9 @@ https://sinajet.github.io/psphive-lapse-2/index.html
 
 ### Credits & Special Thanks ❤️
 
+- **Sinajet** ([GitHub](https://github.com/sinajet))  
+  For porting the entire project and making this possible!.
+
 - **Leeful** ([GitHub](https://github.com/Leeful))  
   For creating the stunning and user-friendly PSPhive! UI that everyone loves.
 
