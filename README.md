@@ -23,6 +23,8 @@ https://sinajet.github.io/psphive-lapse-2/index.html
 - Extremely fast and reliable
 - Supports firmware 7.00 to 9.60
 - No DNS blocking or extra files required
+- Auto-generate offline.cache
+
 
 ### Credits & Special Thanks ❤️
 
