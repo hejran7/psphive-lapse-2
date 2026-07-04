@@ -1,91 +1,57 @@
-# hejran7 PS4 Host Server
 
-A local network server for hosting PS4 jailbreak exploits (PS-Phive / Lapse) on **firmware 7.00 – 9.60**.  
-Built with Python stdlib only. Inspired by Leeful/Sinajet.
+# PSPhive-Lapse 2 - PS4 Jailbreak Host (FW 7.00 to 9.60)
 
----
+A fast, stable, and beautiful PS4 exploit host that combines the gorgeous **PSPhive!** user interface (originally designed by Leeful) with the highly optimized **PSFree-Lapse** exploit by Feyzee61 repository is a fork of [Feyzee61/psfree_lapse](https://github.com/Feyzee61/psfree_lapse).
 
-## Features
+Just open this link in your PS4 browser (make sure to include `/index.html` at the end):
 
-- **HTTP Server** — multi-threaded, serves files from the `host/` folder on port 80
-- **DNS Server** — redirects `lapse.tow` and PlayStation domains to your PC, blocks telemetry
-- **AppCache Manifest** — auto-generates `offline.cache` on every start, fingerprinted by file metadata so the PS4 only re-downloads when files actually change
-- **PS4 User's Guide method** — strips `/document/en/ps4/` prefix so the exploit loads via `manuals.playstation.net`
-- **Correct MIME types** — `.bin`, `.mjs`, `.cache`, `.manifest` all served correctly
-- **Esc to stop** — clean shutdown from the terminal
+**Main Link (Recommended):**
 
----
+https://hejran7.github.io/psphive-lapse-2/index.html
 
-## Requirements
 
-- Windows 10 / 11
-- Python 3.9+ **or** use the prebuilt `hejran7 PS4 host server.exe`
-- Must be run as **Administrator** (required for port 80 and DNS port 53)
-- `fakedns.py` must be in the same folder as `server.py` / the exe
+**Mirror Link:**
 
----
+https://sinajet.github.io/psphive-lapse-2/index.html
 
-## Folder Structure
 
-```
-psphive-lapse-2-main/
-├── host/
-│   ├── index.html
-│   ├── offline.cache          ← auto-generated on server start
-│   └── files/
-│       ├── bundle.js
-│       ├── style.css
-│       ├── img/
-│       ├── js/
-│       └── *.bin
-├── server.py
-├── fakedns.py
-├── server.bat
-└── hejran7 PS4 host server.exe
-```
+> **Important:** You **must** type `/index.html` at the end of the URL, otherwise the exploit will not run!
 
----
+### Features
+- Beautiful PSPhive! UI (designed by Leeful)
+- Based on Feyzee61's optimized and stable PSFree-Lapse exploit
+- Extremely fast and reliable
+- Supports firmware 7.00 to 9.60
+- No DNS blocking or extra files required
 
-## Usage
+### Credits & Special Thanks ❤️
 
-### Option 1 — EXE (easiest)
-1. Right-click `hejran7 PS4 host server.exe` → **Run as administrator**
+- **Sinajet** ([GitHub](https://github.com/sinajet))  
+  For porting the entire project and making this possible!.
 
-### Option 2 — Python
-1. Right-click `server.bat` → **Run as administrator**  
-   or run `py server.py` in an admin terminal
+- **Leeful** ([GitHub](https://github.com/Leeful))  
+  For creating the stunning and user-friendly PSPhive! UI that everyone loves.
+
+- **Anonymous** 
+  Original author and main developer of the Lapse exploit.
+
+- **Al-Azif** ([GitHub](https://github.com/al-azif))  
+  author and main developer of the PSFree-Lapse exploit.
+
+- **Feyzee61** ([GitHub](https://github.com/Feyzee61))  
+  For writing a much more compact, optimized, and stable version of PSFree-Lapse (this repo is a fork of his work).
+
+- **Nazky** ([GitHub](https://github.com/Nazky))  
+  Huge help in creating the first working version of this host → [Nazky/PSPhive-Lapse](https://github.com/Nazky/PSPhive-Lapse)
+
+- Special thanks to:
+  - **Kameleon** ([GitHub](https://github.com/kmeps4))
+  - **PRB** ([X/Twitter](https://x.com/Prb29327239))
+  - **Wr0zen** ([X/Twitter](https://x.com/Wr0zen))
+
+You can find Other Leeful hosts (GoldHEN, Mira, etc.) here:  
+https://wrozen.com
 
 ---
 
-## Connecting Your PS4
-
-### Method A — Direct IP (no DNS change needed)
-1. On your PS4 browser, type your PC's IP shown in the terminal (e.g. `192.168.1.192`)
-
-### Method B — User's Guide / DNS
-1. On PS4 go to **Settings → Network → Set Up Internet Connection**
-2. Set **Primary DNS** to your PC's IP (e.g. `192.168.1.192`)
-3. Open the PS4 browser and go to `lapse.tow`  
-   — or use **User's Guide** from the PS4 home screen
-
----
-
-## How offline.cache Works
-
-On every server start, the server:
-1. Walks the `host/` folder recursively
-2. Skips non-essential files (`.py`, `.exe`, `.bat`, `.md`, etc.)
-3. Reads each file's **size and modification time** (no full file read — instant)
-4. Hashes all metadata into a single MD5 fingerprint
-5. Writes `offline.cache` with that fingerprint as a comment
-
-If no files changed since last run, the fingerprint stays the same and the PS4 uses its cached copy instantly. If any file was added, removed, or modified, the fingerprint changes and the PS4 re-downloads everything automatically.
-
----
-
-## Credits
-
-- **PS-Phive exploit** by [Leeful](https://github.com/Leeful) / Sinajet
-- **PSFree WebKit exploit** (CVE-2022-22620)
-- **fakedns.py** by [Crypt0s](https://github.com/Crypt0s/FakeDns)
-- **Server** by hejran7
+**This project is for educational and research purposes only. Use at your own risk.**
