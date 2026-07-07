@@ -16,7 +16,7 @@ var menuData = {
         "PL-Title": "GoldHEN",
         "PL-Bin": "GoldHEN.bin",
         "PL-Ver": "By SiSTRo",
-        "PL-Desc": "<b>* PRESS R1 TO CHANGE VERSION *<br>* PRESS L1 TO SET AutoLoad After Exploit ON/OFF *</b><br>Homebrew Enabler, Enable Debug Settings, PSVR Support,<br>External HDD Support, Remote PKG Installer Support,<br>Full Rest Mode Support, Debug Trophies Support, Enable UART,<br>Enable Blocked Screenshots, FTP Server on port 2121,<br>BinLoader Server on port 9090,<br>PayLoader LaunchPad and AutoRun Support.<br><br><b>v2.4b18.10 - What's New:</b><br>Another feature on the roadmap has been completed.<br><b>Changelog:</b><br>- Added PayLoader LaunchPad and AutoRun support<br>- Fixed sceUserServiceInitialize failure on ELF payloads<br><b>Note:</b> To add a custom icon, place a png file in the same directory as your payload, using the exact same name followed by the .png extension<br>(e.g., test.bin → test.bin.png).",
+        "PL-Desc": "<b>* PRESS R1 TO CHANGE VERSION *<br>* PRESS L1 TO SET AutoLoad After Exploit ON/OFF *</b><br>Homebrew Enabler, Enable Debug Settings, PSVR , External HDD Support,<br>Remote PKG Installer, Full Rest Mode Support, Debug Trophies Support,<br>Enable UART, Enable Blocked Screenshots, FTP Server on port 2121,<br>PayLoader LaunchPad and AutoRun Support,<br>BinLoader Server on port 9090.",
         "Icon": "<img src=\"img/hen.svg\">",
         "FW": ["9.xx","8.xx","7.xx"]
       },
@@ -28,6 +28,14 @@ var menuData = {
       //   "Icon": "&#xf019;",
       //   "FW": ["9.xx","8.xx","7.xx"]
       // },
+      {
+        "PL-Title": "PS4 Nano DNS",
+        "PL-Bin": "pl_PS4NanoDNSv0.3.elf",
+        "PL-Ver": "PS4 Nano DNS v0.3 by Drakmor",
+        "PL-Desc": "Minimal PS4 DNS proxy payload.<br>Listens on port 53 (IPv4 &amp; IPv6), applies local domain overrides and<br>forwards everything else to upstream resolvers in <b>/data/nanodns/nanodns.ini</b>.<br>Logs queries to <b>/data/nanodns</b>, supports debug logging and exceptions.<br>Upstream resolvers are tried in order -- stops on first valid response.",
+        "Icon": "&#xf0ac;",
+        "FW": ["9.xx","8.xx","7.xx"]
+      },
       {
         "PL-Title": "FTP Server",
         "PL-Bin": "pl_FTP.bin",
